@@ -1,0 +1,26 @@
+Prerequisites:
+
+    Raspberry Pi Zeros (at least two) with Raspberry Pi OS installed.
+
+    A network switch or router to connect the Raspberry Pi Zeros to the same local network.
+
+    Docker installed on each Raspberry Pi Zero. You can install Docker using the following command on each Pi:
+
+
+    curl -sSL https://get.docker.com | sh
+
+Step 1: Initialize Docker Swarm on the Manager Node
+
+Choose one of the Raspberry Pi Zeros to be the manager node. Run the following command to initialize Docker Swarm:
+
+sudo docker swarm init --advertise-addr <MANAGER_IP>
+
+Replace <MANAGER_IP> with the IP address of the manager node. This command initializes the Swarm and generates a join token that other nodes will use to join the cluster.
+
+Step 2: Join Worker Nodes to the Swarm
+
+On each Raspberry Pi Zero you want to add as a worker node, run the following command:
+
+sudo docker swarm join --token <TOKEN> <MANAGER_IP>:2377
+
+Replace <TOKEN> with the token generated in Step 1 and <MANAGER_IP> with the IP address of the manager node.
